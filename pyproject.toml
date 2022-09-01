@@ -1,9 +1,9 @@
 [project]
 name = "pytorch_cinic"
-version = "0.0.1"
+version = "0.0.2"
 authors= [{name="Igor Krawczuk",email="contact-gh@krawczuk.eu"}]
 description = "A small wrapper around the CINIC10 dataset https://datashare.ed.ac.uk/handle/10283/3192"
-readme ="Readme.md"
+readme ="README.md"
 license={file="LICENSE"}
 dependencies = [
     "wget",
