@@ -1,0 +1,8 @@
+[project]
+name = "pytorch_cinic"
+version = "0.0.1"
+dependencies = [
+    "wget",
+    'torch',
+    "torchvision"
+]
