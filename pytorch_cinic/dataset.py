@@ -101,15 +101,20 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
         return os.path.exists(self.download_path) and compute_sha256(self.download_path)==CINIC10.tgz_sha256
 
     def download(self) -> None:
+        os.makedirs(self.base,exist_ok=True)
         if self._check_integrity():
             print("Files already downloaded and verified")
-            return
-        os.makedirs(self.base)
-        wget.download(self.url,out=self.download_path)
-        if not all(os.path.exists(os.path.join(self.base,k) for k in PARTS)):
-            cwd=os.curdir()
-            os.chdir(self.base)
+        else:
+            wget.download(self.url,out=self.download_path)
+        if not all(os.path.exists(os.path.join(self.base,k)) for k in PARTS):
+            cwd=os.path.abspath(os.curdir)
+            os.chdir(self.root)
+            print(list(os.listdir(".")))
             sp.call(["tar","xf",CINIC10.filename])
+            for p in ["train","valid","test"]:
+                assert os.path.exists(p)
+                assert os.path.exists(self.base)
+                os.rename(p,os.path.join(self.base,p))
             os.chdir(cwd)
 
     def extra_repr(self) -> str:
