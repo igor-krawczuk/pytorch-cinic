@@ -39,6 +39,17 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
     url = "https://datashare.is.ed.ac.uk/bitstream/handle/10283/3192/CINIC-10.tar.gz"
     filename = "CINIC-10.tar.gz"
     tgz_sha256 ='31b095acf6d75e25a9e028bae82a07a0f94ff6b00671be2802d34ac4efa81a9e'
+    classes=["airplane",
+     "automobile",
+     "bird",
+     "cat",
+     "deer",
+     "dog",
+     "frog",
+     "horse",
+     "ship",
+     "truck"]
+
 
     def __init__(
         self,
