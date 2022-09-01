@@ -24,8 +24,7 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
     Args:
         root (string): Root directory of dataset where directory
             ``cifar-10-batches-py`` exists or will be saved to if download is set to True.
-        train (bool, optional): If True, creates dataset from training set, otherwise
-            creates from test set.
+        partition (str, optional): One of train,valid,test, creates selects which partition to use.
         transform (callable, optional): A function/transform that takes in an PIL image
             and returns a transformed version. E.g, ``transforms.RandomCrop``
         target_transform (callable, optional): A function/transform that takes in the
@@ -88,7 +87,7 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
         return len(self.data)
 
     def _check_integrity(self) -> bool:
-        return compute_sha256(self.download_path)==CINIC10.tgz_sha256
+        return os.path.exists(self.download_path) and compute_sha256(self.download_path)==CINIC10.tgz_sha256
 
     def download(self) -> None:
         if self._check_integrity():

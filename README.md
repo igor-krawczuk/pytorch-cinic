@@ -15,4 +15,10 @@ If you use it cite the original authors
 }
 ```
 
-and if you want to be nice, also this repo (although the code is borderline trivial so no hard feelings if not).
+and if you want to be nice, also [this repo](https://github.com/igor-krawczuk/pytorch-cinic) (although the code is borderline trivial so no hard feelings if not).
+
+To use simply import 
+
+`from pytorch_cinic.dataset import CINIC10`
+
+and then use like CIFAR10 (except that we use `partition=train/valid/test` instead of `train=True/False`)
