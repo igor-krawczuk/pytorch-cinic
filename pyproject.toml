@@ -1,8 +1,25 @@
 [project]
 name = "pytorch_cinic"
 version = "0.0.1"
+authors= [{name="Igor Krawczuk",email="contact-gh@krawczuk.eu"}]
+description = "A small wrapper around the CINIC10 datase thttps://datashare.ed.ac.uk/handle/10283/3192"
+readme ="Readme.md"
+license={file="LICENSE"}
 dependencies = [
     "wget",
     'torch',
     "torchvision"
 ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/igor-krawczuk/pytorch-cinic"
+"Bug Tracker" = "https://github.com/igor-krawczuk/pytorch-cinic/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

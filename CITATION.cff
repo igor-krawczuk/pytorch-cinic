@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you want to be nice, cite this repo, but more importantly, *cite the authors* - see the README"
+authors:
+  - family-names: Krawczuk
+    given-names: Igor
+    orcid: https://orcid.org/0000-0002-5281-8926
+title: "pytorch_cinic"
+version: 0.0.1
+date-released: 2022-09-01
