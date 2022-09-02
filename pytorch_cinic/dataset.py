@@ -53,7 +53,7 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
 
     def __init__(
         self,
-        root: str,
+        root: str= os.path.expanduser("~/.datasets/cinic10"),
         partition: str = "train",
         transform: Optional[Callable] = None,
         target_transform: Optional[Callable] = None,
@@ -64,7 +64,7 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
 
         assert partition in PARTS,f"{partition} not in {PARTS}"
         self.partition=partition
-        self.base=os.path.join(self.root,"CINIC")
+        self.root=root
 
         if download:
             self.download()
@@ -72,7 +72,7 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
         if not self._check_integrity():
             raise RuntimeError("Dataset not found or corrupted. You can use download=True to download it")
 
-        self.data=ImageFolder(os.path.join(self.base,partition))
+        self.data=ImageFolder(os.path.join(self.root,partition))
 
 
 
@@ -98,23 +98,32 @@ class CINIC10(torchvision.datasets.vision.VisionDataset):
         return len(self.data)
 
     def _check_integrity(self) -> bool:
-        return os.path.exists(self.download_path) and compute_sha256(self.download_path)==CINIC10.tgz_sha256
+        if not os.path.exists(self.download_path):
+            print(f"Folder {self.root} does not exist")
+            return False
+
+        cksum=compute_sha256(self.download_path)
+
+        if not cksum==CINIC10.tgz_sha256:
+            print(f"{self.download_path} cksum {cksum} does not match {CINIC10.tgz_sha256}")
+            return False
+        else:
+            return True
 
     def download(self) -> None:
-        os.makedirs(self.base,exist_ok=True)
+        os.makedirs(self.root,exist_ok=True)
         if self._check_integrity():
             print("Files already downloaded and verified")
         else:
             wget.download(self.url,out=self.download_path)
-        if not all(os.path.exists(os.path.join(self.base,k)) for k in PARTS):
+        if not all(os.path.exists(os.path.join(self.root,k)) for k in PARTS):
             cwd=os.path.abspath(os.curdir)
             os.chdir(self.root)
-            print(list(os.listdir(".")))
             sp.call(["tar","xf",CINIC10.filename])
             for p in ["train","valid","test"]:
                 assert os.path.exists(p)
-                assert os.path.exists(self.base)
-                os.rename(p,os.path.join(self.base,p))
+                assert os.path.exists(self.root)
+                os.rename(p,os.path.join(self.root,p))
             os.chdir(cwd)
 
     def extra_repr(self) -> str:

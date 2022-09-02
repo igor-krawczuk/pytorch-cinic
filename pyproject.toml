@@ -1,6 +1,6 @@
 [project]
 name = "pytorch_cinic"
-version = "0.0.5"
+version = "0.0.6"
 authors= [{name="Igor Krawczuk",email="contact-gh@krawczuk.eu"}]
 description = "A small wrapper around the CINIC10 dataset https://datashare.ed.ac.uk/handle/10283/3192"
 readme ="README.md"
